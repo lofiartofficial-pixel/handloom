@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   CSS CUSTOM PROPERTIES
+   ============================================ */
+:root {
+  --gold: #c9a84c;
+  --deep: #2d1b4e;
+  --cream: #fdf8f0;
+  --rose: #e8627a;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased;
+    background-color: #fdf8f0;
+  }
+
+  ::selection {
+    background-color: #c9a84c40;
+    color: #2d1b4e;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c9a84c80;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c9a84c;
+  }
+}
+
+/* ============================================
+   COMPONENT UTILITIES
+   ============================================ */
+@layer components {
+
+  /* Buttons */
+  .btn-gold {
+    @apply bg-gradient-to-r from-yellow-500 to-yellow-600 text-white font-semibold transition-all duration-300;
+    &:hover {
+      @apply from-yellow-600 to-yellow-700;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(201, 168, 76, 0.35);
+    }
+    &:active { transform: translateY(0); }
+    &:disabled { @apply from-gray-300 to-gray-300 cursor-not-allowed; transform: none; box-shadow: none; }
+  }
+
+  .btn-deep {
+    @apply bg-deep text-white font-semibold transition-all duration-300;
+    &:hover { opacity: 0.9; transform: translateY(-1px); }
+  }
+
+  /* Backgrounds */
+  .deep-bg { background-color: var(--deep); }
+  .cream-bg { background-color: var(--cream); }
+
+  /* Text */
+  .gold-text { color: var(--gold); }
+  .deep-text { color: var(--deep); }
+
+  /* Hero gradient */
+  .hero-bg {
+    background: linear-gradient(135deg, #2d1b4e 0%, #5a2d6b 50%, #c9a84c 100%);
+  }
+
+  /* Card hover */
+  .card-hover {
+    @apply transition-all duration-300;
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(45, 27, 78, 0.12);
+    }
+  }
+
+  /* Font families */
+  .font-display { font-family: var(--font-display), serif; }
+  .font-sinhala { font-family: var(--font-sinhala), sans-serif; }
+
+  /* Safe area padding for mobile */
+  .safe-bottom {
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+  .safe-top {
+    padding-top: max(0px, env(safe-area-inset-top));
+  }
+
+  /* Status badges */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* ============================================
+   FRAMER MOTION HELPERS
+   ============================================ */
+@layer utilities {
+  .will-change-transform { will-change: transform; }
+  .will-change-opacity { will-change: opacity; }
+  .backface-hidden { backface-visibility: hidden; }
+}
+
+/* ============================================
+   SINHALA FONT RENDERING
+   ============================================ */
+[lang="si"], .font-sinhala {
+  font-family: var(--font-sinhala), 'Noto Sans Sinhala', sans-serif;
+  line-height: 1.8;
+}
+
+/* ============================================
+   CUSTOM ANIMATIONS
+   ============================================ */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* Print styles for courier labels */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white !important; }
+}
